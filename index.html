@@ -540,7 +540,7 @@
           <a href="#contacto">Contacto</a>
         </nav>
       </div>
-      <small>© 2026 Bioparque Selva Viva — Sitio demostrativo con fines académicos. Desarrollado por <b>Luis Valarezo</b> · PUCETEC.</small>
+      <small>© 2026 Bioparque Selva Viva — Sitio demostrativo con fines académicos. Desarrollado por <b>Luis Valarezo</b> · PUCETEC. · v1.1</small>
     </div>
   </footer>
 
@@ -557,12 +557,12 @@
       });
     }));
 
-    // Menú móvil: cerrar al hacer clic en un enlace
+    
     document.querySelectorAll('#menu a').forEach(a =>
       a.addEventListener('click', () => document.getElementById('menu').classList.remove('open'))
     );
 
-    // Formulario (sin backend: confirmación local)
+    
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', e => {
       e.preventDefault();
