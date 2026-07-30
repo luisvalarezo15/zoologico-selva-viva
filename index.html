@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bioparque Selva Viva — Zoológico</title>
+  <meta name="description" content="Bioparque Selva Viva: conoce nuestros animales, servicios, programas de conservación y planifica tu visita." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Nunito+Sans:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --jungle:#123528;      /* verde selva profundo */
+      --leaf:#2f7a55;        /* verde hoja */
+      --leaf-soft:#4f9e74;
+      --amber:#f2a541;       /* ámbar / marigold */
+      --amber-deep:#d98324;
+      --coral:#d64550;       /* rojo cálido para acentos/CTA */
+      --parchment:#f5f2e8;   /* fondo pergamino cálido */
+      --paper:#fbf9f2;
+      --ink:#1a2420;
+      --ink-soft:#4a564f;
+      --line:#e2ddcb;
+      --shadow:0 18px 40px -20px rgba(18,53,40,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Nunito Sans",system-ui,-apple-system,sans-serif;
+      color:var(--ink);
+      background:var(--parchment);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+    }
+    h1,h2,h3,.display{font-family:"Fraunces",Georgia,serif}
+    a{color:inherit;text-decoration:none}
+    img,svg{display:block;max-width:100%}
+    .wrap{width:min(1120px,92%);margin-inline:auto}
+    .eyebrow{
+      font-family:"Nunito Sans",sans-serif;font-weight:900;letter-spacing:.18em;
+      text-transform:uppercase;font-size:.72rem;color:var(--amber-deep);
+      display:inline-flex;align-items:center;gap:.5rem;
+    }
+    .eyebrow::before{content:"";width:26px;height:2px;background:var(--amber);border-radius:2px}
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;
+      font-weight:800;font-size:.98rem;padding:.85rem 1.4rem;border-radius:999px;
+      border:2px solid transparent;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, background .2s;
+    }
+    .btn-primary{background:var(--coral);color:#fff;box-shadow:0 10px 24px -10px rgba(214,69,80,.7)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+    .btn-ghost:hover{background:rgba(255,255,255,.12)}
+    .btn-dark{background:var(--jungle);color:#fff}
+    .btn-dark:hover{transform:translateY(-2px)}
+    :focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+
+    /* ---------- NAV ---------- */
+    header.site{position:sticky;top:0;z-index:50;background:rgba(18,53,40,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;color:#fff}
+    .brand{display:flex;align-items:center;gap:.7rem;font-family:"Fraunces";font-weight:900;font-size:1.25rem;color:#fff}
+    .brand .mark{width:42px;height:42px;flex:none}
+    .menu{display:flex;gap:.35rem;align-items:center}
+    .menu a{padding:.5rem .85rem;border-radius:999px;font-weight:700;font-size:.95rem;color:#e9f2ec;transition:background .2s}
+    .menu a:hover{background:rgba(255,255,255,.12)}
+    .menu .btn{padding:.55rem 1.1rem}
+    .burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+
+    /* ---------- HERO ---------- */
+    .hero{position:relative;background:linear-gradient(180deg,#0f2e22,#123528 55%,#164a34);color:#fff;overflow:hidden}
+    .hero-inner{position:relative;z-index:3;padding:clamp(3rem,7vw,6rem) 0 15rem}
+    .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;font-weight:900;letter-spacing:-.01em;margin:.6rem 0 1rem}
+    .hero h1 em{font-style:italic;color:var(--amber)}
+    .hero p.lead{font-size:clamp(1.05rem,2vw,1.25rem);max-width:46ch;color:#dce9e0}
+    .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+    .stats{display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:2.4rem}
+    .stat b{font-family:"Fraunces";font-size:2rem;font-weight:900;color:var(--amber);display:block;line-height:1}
+    .stat span{font-size:.85rem;color:#bcd2c4;font-weight:700;letter-spacing:.03em}
+    /* escena sabana SVG al fondo */
+    .savanna{position:absolute;left:0;right:0;bottom:-1px;z-index:1;width:100%;pointer-events:none}
+    .sun{position:absolute;right:8%;top:12%;z-index:2}
+
+    /* ---------- SECTIONS ---------- */
+    section{padding:clamp(3.5rem,8vw,6rem) 0}
+    .sec-head{max-width:60ch;margin-bottom:2.5rem}
+    .sec-head h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:900;line-height:1.05;margin:.5rem 0 .6rem;letter-spacing:-.01em}
+    .sec-head p{color:var(--ink-soft);font-size:1.08rem}
+
+    /* highlights */
+    #destacado{background:var(--paper);border-block:1px solid var(--line)}
+    .highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .hl{background:var(--parchment);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
+    .hl .ic{font-size:2rem}
+    .hl h3{font-size:1.25rem;margin:.6rem 0 .3rem}
+    .hl p{color:var(--ink-soft);font-size:.98rem}
+
+    /* filtros animales */
+    .filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .chip{font-family:"Nunito Sans";font-weight:800;font-size:.9rem;padding:.5rem 1.1rem;border-radius:999px;border:2px solid var(--line);background:#fff;cursor:pointer;transition:.2s;color:var(--ink-soft)}
+    .chip[aria-pressed="true"]{background:var(--jungle);color:#fff;border-color:var(--jungle)}
+    .chip:hover{border-color:var(--leaf)}
+
+    /* fichas animal (elemento firma: ficha de guía de campo) */
+    .grid-animals{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s}
+    .card:hover{transform:translateY(-4px)}
+    .card .specimen{position:relative;background:radial-gradient(circle at 50% 35%,#eef6ef,#dcebdf);padding:2rem 1rem 1.4rem;text-align:center}
+    .card .emoji{font-size:4.2rem;line-height:1;filter:drop-shadow(0 8px 10px rgba(0,0,0,.15))}
+    .tag{position:absolute;top:.9rem;left:.9rem;font-family:"Nunito Sans";font-weight:900;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px;color:#fff}
+    .tag.mamiferos{background:var(--coral)}
+    .tag.aves{background:var(--amber-deep)}
+    .tag.reptiles{background:var(--leaf)}
+    .tag.acuaticos{background:#2b7fb0}
+    .card .body{padding:1.3rem 1.4rem 1.5rem;flex:1;display:flex;flex-direction:column}
+    .card h3{font-size:1.5rem;margin-bottom:.4rem}
+    .card .desc{color:var(--ink-soft);font-size:.95rem;margin-bottom:1rem}
+    .fields{margin-top:auto;border-top:1px dashed var(--line);padding-top:.9rem;display:grid;gap:.55rem}
+    .field{display:grid;grid-template-columns:auto 1fr;gap:.6rem;font-size:.9rem}
+    .field .k{font-weight:900;color:var(--jungle);white-space:nowrap;display:flex;align-items:center;gap:.35rem}
+    .field .v{color:var(--ink-soft)}
+
+    /* servicios */
+    #servicios{background:var(--jungle);color:#fff}
+    #servicios .sec-head p{color:#c6dccf}
+    #servicios .eyebrow{color:var(--amber)}
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+    .svc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:1.4rem}
+    .svc .ic{font-size:1.8rem}
+    .svc h3{font-size:1.15rem;margin:.5rem 0 .3rem;color:#fff}
+    .svc p{color:#bcd2c4;font-size:.93rem}
+    .info-row{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.4rem}
+    .info-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:1.5rem}
+    .info-box h3{color:var(--amber);font-size:1.2rem;margin-bottom:.7rem}
+    .info-box ul{list-style:none;display:grid;gap:.5rem}
+    .info-box li{display:flex;justify-content:space-between;gap:1rem;color:#dce9e0;border-bottom:1px dashed rgba(255,255,255,.14);padding-bottom:.45rem;font-size:.95rem}
+    .info-box li b{color:#fff}
+
+    /* educacion */
+    #educacion{background:var(--paper);border-block:1px solid var(--line)}
+    .edu{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem}
+    .edu-item{display:flex;gap:1rem;background:var(--parchment);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem}
+    .edu-item .ic{font-size:1.8rem;flex:none}
+    .edu-item h3{font-size:1.15rem;margin-bottom:.25rem}
+    .edu-item p{color:var(--ink-soft);font-size:.94rem}
+    .facts{margin-top:1.4rem;background:var(--jungle);color:#fff;border-radius:var(--radius);padding:1.6rem 1.8rem}
+    .facts h3{color:var(--amber);margin-bottom:.6rem}
+    .facts ul{padding-left:1.1rem;display:grid;gap:.4rem}
+    .facts li{color:#dce9e0}
+
+    /* contacto */
+    .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:start}
+    form{display:grid;gap:1rem}
+    label{font-weight:800;font-size:.9rem;display:block;margin-bottom:.35rem}
+    input,textarea{width:100%;padding:.8rem 1rem;border:2px solid var(--line);border-radius:12px;font-family:inherit;font-size:1rem;background:#fff;transition:border .2s}
+    input:focus,textarea:focus{border-color:var(--leaf);outline:none}
+    textarea{min-height:120px;resize:vertical}
+    .form-msg{display:none;background:#e7f4ec;border:1px solid var(--leaf-soft);color:var(--jungle);padding:.9rem 1rem;border-radius:12px;font-weight:700}
+    .contact-info{display:grid;gap:1rem}
+    .ci-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem}
+    .ci-card h3{display:flex;align-items:center;gap:.5rem;font-size:1.1rem;margin-bottom:.4rem}
+    .ci-card p{color:var(--ink-soft);font-size:.95rem}
+    .social{display:flex;gap:.6rem;margin-top:.3rem}
+    .social a{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--jungle);color:#fff;font-weight:900;transition:.2s}
+    .social a:hover{background:var(--coral);transform:translateY(-2px)}
+    .map{margin-top:.6rem;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+
+    /* footer */
+    footer.site{background:var(--jungle);color:#cfe0d6;padding:2.6rem 0 2rem}
+    .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;align-items:center}
+    .foot .brand{color:#fff}
+    footer small{display:block;margin-top:1.4rem;color:#8fb09f;border-top:1px solid rgba(255,255,255,.1);padding-top:1.2rem}
+    footer small b{color:var(--amber)}
+
+    /* responsive */
+    @media(max-width:900px){
+      .highlights,.grid-animals,.services,.edu{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+      .info-row{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--jungle);padding:1rem;gap:.3rem}
+      .menu.open{display:flex}
+      .menu a{width:100%}
+      .burger{display:block}
+      .highlights,.grid-animals,.services,.edu{grid-template-columns:1fr}
+      .hero-inner{padding-bottom:11rem}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="site">
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="Inicio Bioparque Selva Viva">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="30" fill="#2f7a55"/>
+          <path d="M32 14c6 6 9 12 9 19a9 9 0 0 1-18 0c0-7 3-13 9-19z" fill="#f2a541"/>
+          <circle cx="20" cy="26" r="4.2" fill="#f5f2e8"/>
+          <circle cx="44" cy="26" r="4.2" fill="#f5f2e8"/>
+          <circle cx="16" cy="36" r="3.6" fill="#f5f2e8"/>
+          <circle cx="48" cy="36" r="3.6" fill="#f5f2e8"/>
+        </svg>
+        Bioparque <em style="font-style:italic;color:var(--amber)">Selva Viva</em>
+      </a>
+      <button class="burger" aria-label="Abrir menú" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#animales">Animales</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#educacion">Educación</a>
+        <a href="#contacto">Contacto</a>
+        <a class="btn btn-primary" href="#contacto">Planifica tu visita</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO / BANNER ============ -->
+  <section class="hero" id="inicio" style="padding:0">
+    <div class="wrap hero-inner">
+      <span class="eyebrow" style="color:var(--amber)">Reserva natural &middot; Educación &middot; Conservación</span>
+      <h1>Un mundo salvaje<br>que <em>vale la pena</em> proteger</h1>
+      <p class="lead">Recorre cuatro hábitats, conoce a más de 120 especies y vive experiencias que despiertan el amor por la naturaleza. Bienvenido al Bioparque Selva Viva.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#animales">Conoce a los animales</a>
+        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>120+</b><span>ESPECIES</span></div>
+        <div class="stat"><b>4</b><span>HÁBITATS</span></div>
+        <div class="stat"><b>15</b><span>PROGRAMAS DE CONSERVACIÓN</span></div>
+      </div>
+    </div>
+
+    <!-- sol -->
+    <svg class="sun" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="34" fill="#f2a541" opacity=".85"/>
+      <circle cx="60" cy="60" r="48" fill="none" stroke="#f2a541" stroke-width="2" opacity=".35"/>
+    </svg>
+
+    <!-- escena sabana -->
+    <svg class="savanna" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#164a34" d="M0,220 C240,160 480,260 720,220 C960,180 1200,260 1440,210 L1440,320 L0,320 Z"/>
+      <path fill="#0f3a29" d="M0,270 C300,230 600,300 900,265 C1140,240 1300,300 1440,270 L1440,320 L0,320 Z"/>
+      <!-- acacia -->
+      <g fill="#0c2c1f">
+        <rect x="200" y="215" width="7" height="60"/>
+        <ellipse cx="203" cy="210" rx="55" ry="18"/>
+        <rect x="1180" y="205" width="8" height="70"/>
+        <ellipse cx="1184" cy="200" rx="65" ry="22"/>
+      </g>
+      <!-- siluetas animales -->
+      <g fill="#0c2c1f">
+        <path d="M560 268 q6-24 22-24 q4-14 14-10 q6 2 4 12 l6 22 h-8 l-4-14 q-8 4-14 0 l-4 14z"/>
+        <path d="M840 270 q4-10 4-22 q0-10 10-10 q10 0 10 10 q0 12 4 22 h-6 l-2-16 h-6 l-2 16z"/>
+        <path d="M868 232 q10-2 12-14 q6 2 4 12 q10 0 8 10 l-4 4 q-14 4-24-2z"/>
+      </g>
+    </svg>
+  </section>
+
+  <!-- ============ INFORMACIÓN DESTACADA ============ -->
+  <section id="destacado">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Información destacada</span>
+        <h2>Lo que hace único a nuestro bioparque</h2>
+        <p>Más que un zoológico: un centro de conservación donde cada visita apoya la protección de especies en peligro.</p>
+      </div>
+      <div class="highlights">
+        <div class="hl"><div class="ic">🌿</div><h3>Hábitats reales</h3><p>Espacios amplios diseñados para replicar el entorno natural de cada especie.</p></div>
+        <div class="hl"><div class="ic">🔬</div><h3>Centro de rescate</h3><p>Rehabilitamos animales heridos y trabajamos por su regreso a la vida silvestre.</p></div>
+        <div class="hl"><div class="ic">👨‍👩‍👧‍👦</div><h3>Para toda la familia</h3><p>Recorridos, talleres y actividades pensadas para grandes y pequeños.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANIMALES ============ -->
+  <section id="animales">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Nuestros animales</span>
+        <h2>Guía de especies</h2>
+        <p>Explora nuestras cuatro categorías y descubre la ficha de cada animal: hábitat, características y alimentación.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtrar por categoría">
+        <button class="chip" aria-pressed="true" data-filter="todos">Todos</button>
+        <button class="chip" aria-pressed="false" data-filter="mamiferos">🦁 Mamíferos</button>
+        <button class="chip" aria-pressed="false" data-filter="aves">🦅 Aves</button>
+        <button class="chip" aria-pressed="false" data-filter="reptiles">🐢 Reptiles</button>
+        <button class="chip" aria-pressed="false" data-filter="acuaticos">🐬 Acuáticos</button>
+      </div>
+
+      <div class="grid-animals" id="animalGrid">
+        <!-- LEÓN -->
+        <article class="card" data-cat="mamiferos">
+          <div class="specimen"><span class="tag mamiferos">Mamífero</span><div class="emoji">🦁</div></div>
+          <div class="body">
+            <h3>León</h3>
+            <p class="desc">El rey de la sabana, célebre por su melena y por un rugido que se escucha a kilómetros.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Sabanas y praderas del África subsahariana.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Vive en manadas; los machos pesan hasta 190 kg.</span></div>
+              <div class="field"><span class="k">🍖 Alimentación</span><span class="v">Carnívoro: cebras, ñus y búfalos.</span></div>
+            </div>
+          </div>
+        </article>
+        <!-- ELEFANTE -->
+        <article class="card" data-cat="mamiferos">
+          <div class="specimen"><span class="tag mamiferos">Mamífero</span><div class="emoji">🐘</div></div>
+          <div class="body">
+            <h3>Elefante</h3>
+            <p class="desc">El animal terrestre más grande del planeta, de memoria prodigiosa y fuerte vida social.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Sabanas, bosques y selvas de África y Asia.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Su trompa tiene más de 40.000 músculos; pesa hasta 6 toneladas.</span></div>
+              <div class="field"><span class="k">🌿 Alimentación</span><span class="v">Herbívoro: hierbas, hojas, frutas y cortezas.</span></div>
+            </div>
+          </div>
+        </article>
+        <!-- JIRAFA -->
+        <article class="card" data-cat="mamiferos">
+          <div class="specimen"><span class="tag mamiferos">Mamífero</span><div class="emoji">🦒</div></div>
+          <div class="body">
+            <h3>Jirafa</h3>
+            <p class="desc">El animal más alto del mundo, con un cuello inconfundible y andar elegante.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Sabanas y zonas arboladas de África.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Alcanza hasta 5,5 m de altura; su lengua mide hasta 50 cm.</span></div>
+              <div class="field"><span class="k">🌿 Alimentación</span><span class="v">Herbívoro: hojas de acacia, principalmente.</span></div>
+            </div>
+          </div>
+        </article>
+        <!-- TIGRE -->
+        <article class="card" data-cat="mamiferos">
+          <div class="specimen"><span class="tag mamiferos">Mamífero</span><div class="emoji">🐅</div></div>
+          <div class="body">
+            <h3>Tigre</h3>
+            <p class="desc">El felino más grande del mundo: ágil nadador y cazador solitario.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Selvas, manglares y bosques de Asia.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Sus rayas son únicas, como huellas dactilares; pesa hasta 300 kg.</span></div>
+              <div class="field"><span class="k">🍖 Alimentación</span><span class="v">Carnívoro: ciervos y jabalíes.</span></div>
+            </div>
+          </div>
+        </article>
+        <!-- ÁGUILA -->
+        <article class="card" data-cat="aves">
+          <div class="specimen"><span class="tag aves">Ave</span><div class="emoji">🦅</div></div>
+          <div class="body">
+            <h3>Águila</h3>
+            <p class="desc">Ave rapaz de vista prodigiosa y vuelo majestuoso, símbolo de libertad.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Montañas, bosques y acantilados.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Su vista es hasta 8 veces más aguda que la humana.</span></div>
+              <div class="field"><span class="k">🍖 Alimentación</span><span class="v">Carnívoro: peces, roedores y aves pequeñas.</span></div>
+            </div>
+          </div>
+        </article>
+        <!-- TORTUGA -->
+        <article class="card" data-cat="reptiles">
+          <div class="specimen"><span class="tag reptiles">Reptil</span><div class="emoji">🐢</div></div>
+          <div class="body">
+            <h3>Tortuga</h3>
+            <p class="desc">Reptil longevo y tranquilo, protegido por su inconfundible caparazón.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Océanos, ríos y tierra firme, según la especie.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Algunas especies viven más de 100 años.</span></div>
+              <div class="field"><span class="k">🥬 Alimentación</span><span class="v">Omnívoro: algas, plantas y medusas.</span></div>
+            </div>
+          </div>
+        </article>
+        <!-- DELFÍN -->
+        <article class="card" data-cat="acuaticos">
+          <div class="specimen"><span class="tag acuaticos">Acuático</span><div class="emoji">🐬</div></div>
+          <div class="body">
+            <h3>Delfín</h3>
+            <p class="desc">Mamífero marino muy inteligente y sociable, famoso por su curiosidad.</p>
+            <div class="fields">
+              <div class="field"><span class="k">📍 Hábitat</span><span class="v">Océanos y mares templados y tropicales.</span></div>
+              <div class="field"><span class="k">✨ Características</span><span class="v">Se comunica con silbidos y se orienta por ecolocalización.</span></div>
+              <div class="field"><span class="k">🐟 Alimentación</span><span class="v">Carnívoro: peces y calamares.</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section id="servicios">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Para los visitantes</span>
+        <h2>Servicios y experiencias</h2>
+        <p>Todo lo que necesitas para disfrutar al máximo tu día en el bioparque.</p>
+      </div>
+      <div class="services">
+        <div class="svc"><div class="ic">🧭</div><h3>Visitas guiadas</h3><p>Recorridos con guías expertos que te acercan a cada especie.</p></div>
+        <div class="svc"><div class="ic">📚</div><h3>Recorridos educativos</h3><p>Rutas temáticas para escuelas y grupos con contenido pedagógico.</p></div>
+        <div class="svc"><div class="ic">🥕</div><h3>Zona de alimentación</h3><p>Participa en la alimentación supervisada de algunos animales.</p></div>
+        <div class="svc"><div class="ic">🛍️</div><h3>Tienda de recuerdos</h3><p>Souvenirs y productos que apoyan nuestros programas de conservación.</p></div>
+        <div class="svc"><div class="ic">🎉</div><h3>Eventos especiales</h3><p>Noches temáticas, cumpleaños y celebraciones dentro del parque.</p></div>
+        <div class="svc"><div class="ic">🎨</div><h3>Actividades para niños</h3><p>Talleres, juegos y áreas interactivas diseñadas para los más pequeños.</p></div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box">
+          <h3>🕒 Horarios de atención</h3>
+          <ul>
+            <li>Lunes a viernes <b>09:00 – 17:00</b></li>
+            <li>Sábados y domingos <b>08:00 – 18:00</b></li>
+            <li>Feriados <b>08:00 – 18:00</b></li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>🎟️ Información de precios</h3>
+          <ul>
+            <li>Adultos <b>$8.00</b></li>
+            <li>Niños (4–12 años) <b>$4.00</b></li>
+            <li>Adultos mayores <b>$5.00</b></li>
+            <li>Menores de 3 años <b>Gratis</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCACIÓN / CONSERVACIÓN ============ -->
+  <section id="educacion">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Educación y conservación</span>
+        <h2>Cuidar hoy para que existan mañana</h2>
+        <p>Creemos que conocer es el primer paso para conservar. Estos son nuestros pilares.</p>
+      </div>
+      <div class="edu">
+        <div class="edu-item"><div class="ic">🛡️</div><div><h3>Protección de especies</h3><p>Programas de reproducción y rescate de animales en peligro de extinción.</p></div></div>
+        <div class="edu-item"><div class="ic">♻️</div><div><h3>Cuidado del medio ambiente</h3><p>Prácticas sostenibles, reciclaje y reducción de residuos en todo el parque.</p></div></div>
+        <div class="edu-item"><div class="ic">🎓</div><div><h3>Programas educativos</h3><p>Charlas, talleres y visitas escolares para sembrar conciencia ambiental.</p></div></div>
+        <div class="edu-item"><div class="ic">🌎</div><div><h3>Consejos para proteger la naturaleza</h3><p>Pequeñas acciones diarias que tú también puedes aplicar en casa.</p></div></div>
+      </div>
+
+      <div class="facts">
+        <h3>🐾 Datos interesantes sobre animales</h3>
+        <ul>
+          <li>El corazón de un elefante late unas 30 veces por minuto.</li>
+          <li>Los delfines duermen con la mitad de su cerebro despierta para seguir respirando.</li>
+          <li>El rugido de un león puede oírse hasta a 8 km de distancia.</li>
+          <li>Las jirafas solo necesitan dormir entre 30 minutos y 2 horas al día.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Contacto</span>
+        <h2>Planifica tu visita</h2>
+        <p>Escríbenos y te ayudamos a organizar tu experiencia en el Bioparque Selva Viva.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div>
+          <form id="contactForm" novalidate>
+            <div>
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Tu nombre completo" required />
+            </div>
+            <div>
+              <label for="correo">Correo electrónico</label>
+              <input id="correo" name="correo" type="email" placeholder="tucorreo@ejemplo.com" required />
+            </div>
+            <div>
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" placeholder="09XXXXXXXX" />
+            </div>
+            <div>
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte?" required></textarea>
+            </div>
+            <button class="btn btn-dark" type="submit">Enviar mensaje</button>
+            <p class="form-msg" id="formMsg">✅ ¡Gracias! Hemos recibido tu mensaje y te responderemos pronto.</p>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <div class="ci-card">
+            <h3>📍 Dirección</h3>
+            <p>Av. de la Naturaleza y calle Los Guayacanes, Quito, Ecuador.</p>
+            <div class="map">
+              <svg viewBox="0 0 400 160" width="100%" aria-label="Mapa de ubicación referencial">
+                <rect width="400" height="160" fill="#dcebdf"/>
+                <path d="M0 110 H400 M0 70 H400 M120 0 V160 M270 0 V160" stroke="#c3d9c8" stroke-width="6"/>
+                <circle cx="200" cy="80" r="12" fill="#d64550"/>
+                <path d="M200 92 l-8 14 h16 z" fill="#d64550"/>
+                <circle cx="200" cy="80" r="5" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ci-card">
+            <h3>📞 Contacto directo</h3>
+            <p>Teléfono: (02) 555-0123<br>Correo: info@selvaviva.ec</p>
+          </div>
+          <div class="ci-card">
+            <h3>🌐 Redes sociales</h3>
+            <div class="social">
+              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="Instagram">ig</a>
+              <a href="#" aria-label="X">X</a>
+              <a href="#" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot">
+        <a class="brand" href="#inicio">
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" fill="#2f7a55"/>
+            <path d="M32 14c6 6 9 12 9 19a9 9 0 0 1-18 0c0-7 3-13 9-19z" fill="#f2a541"/>
+            <circle cx="20" cy="26" r="4.2" fill="#f5f2e8"/><circle cx="44" cy="26" r="4.2" fill="#f5f2e8"/>
+            <circle cx="16" cy="36" r="3.6" fill="#f5f2e8"/><circle cx="48" cy="36" r="3.6" fill="#f5f2e8"/>
+          </svg>
+          Bioparque Selva Viva
+        </a>
+        <nav class="menu" style="display:flex;position:static;background:none;padding:0" aria-label="Pie">
+          <a href="#animales">Animales</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#educacion">Educación</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+      <small>© 2026 Bioparque Selva Viva — Sitio demostrativo con fines académicos. Desarrollado por <b>Luis Valarezo</b> · PUCETEC.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Filtro de animales
+    const chips = document.querySelectorAll('.chip');
+    const cards = document.querySelectorAll('#animalGrid .card');
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      chips.forEach(c => c.setAttribute('aria-pressed','false'));
+      chip.setAttribute('aria-pressed','true');
+      const f = chip.dataset.filter;
+      cards.forEach(card => {
+        card.style.display = (f === 'todos' || card.dataset.cat === f) ? '' : 'none';
+      });
+    }));
+
+    // Menú móvil: cerrar al hacer clic en un enlace
+    document.querySelectorAll('#menu a').forEach(a =>
+      a.addEventListener('click', () => document.getElementById('menu').classList.remove('open'))
+    );
+
+    // Formulario (sin backend: confirmación local)
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      document.getElementById('formMsg').style.display = 'block';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
